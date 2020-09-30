@@ -6,11 +6,44 @@
         {{ $t("words.tarrot_teller") }}
       </q-toolbar-title>
     </q-toolbar>
+    <div class="row flex flex-center q-mt-lg">
+      {{ $t("words.card_of_day") }}
+    </div>
+    <div class="row flex flex-center q-mt-sm">
+      <q-btn round @click="test" size="150px" flat>
+        <q-img :src="card.image" spinner-color="white" />
+      </q-btn>
+    </div>
+    <div class="row flex flex-center q-mt-sm">
+      {{ card.name }}
+    </div>
+    <div class="row flex flex-center q-mt-lg">
+      <card-board-cards />
+    </div>
   </q-page>
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+import CardBoardCards from "components/cards/CardBoardCards"
+
 export default {
-  name: "Tarrot"
+  name: "Tarrot",
+  components: {
+    CardBoardCards
+  },
+  computed: {
+    ...mapGetters({
+      card: "cards/getCard"
+    })
+  },
+  methods: {
+    test() {
+      console.log("bike");
+    }
+  },
+  mounted() {
+    this.$store.dispatch("cards/card");
+  }
 };
 </script>

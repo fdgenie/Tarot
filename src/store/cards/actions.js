@@ -7,8 +7,22 @@ export function card({ commit }) {
     method: "get"
   }).then(result => {
     commit("setCard", result.data[0]);
-    firebaseDb.ref("Tarot/" + new Date()).set({
-      card: result.data[0]
+    // const [month, date, year] = new Date().toLocaleDateString().split("/");
+    firebaseDb.ref("Tarot").push({
+      card: {
+        ...result.data[0],
+        datePicked: new Date().toLocaleDateString(),
+        todayChecked: true
+      }
     });
   });
+}
+
+export function lastCard({ commit }) {
+  firebaseDb
+    .ref("Tarot")
+    .limitToLast(1)
+    .once("child_added", card => {
+      commit("setCard", card.val().card);
+    });
 }

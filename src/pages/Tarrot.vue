@@ -10,7 +10,14 @@
       {{ $t("words.card_of_day") }}
     </div>
     <div class="row flex flex-center q-mt-sm">
-      <q-btn round @click="test" size="150px" flat>
+      <q-btn round @click="seeTodayCard" size="150px" flat v-if="!card || (!card.todayChecked && card.datePicked === today)">
+        <q-img
+          size="150px"
+          src="../../public/icons/tarot_back.png"
+          spinner-color="white"
+        />
+      </q-btn>
+      <q-btn  v-else round flat size="150px">
         <q-img :src="card.image" spinner-color="white" />
       </q-btn>
     </div>
@@ -25,7 +32,7 @@
 
 <script>
 import { mapGetters } from "vuex";
-import CardBoardCards from "components/cards/CardBoardCards"
+import CardBoardCards from "components/cards/CardBoardCards";
 
 export default {
   name: "Tarrot",
@@ -35,15 +42,18 @@ export default {
   computed: {
     ...mapGetters({
       card: "cards/getCard"
-    })
+    }),
+    today() {
+      return new Date().toLocaleDateString();
+    }
   },
   methods: {
-    test() {
-      console.log("bike");
+    seeTodayCard() {
+      this.$store.dispatch("cards/card");
     }
   },
   mounted() {
-    this.$store.dispatch("cards/card");
+    this.$store.dispatch("cards/lastCard");
   }
 };
 </script>

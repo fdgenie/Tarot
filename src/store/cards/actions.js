@@ -6,15 +6,16 @@ export function card({ commit }) {
     url: "/spreads/random_card",
     method: "get"
   }).then(result => {
-    commit("setCard", result.data[0]);
-    // const [month, date, year] = new Date().toLocaleDateString().split("/");
+    const [month, date, year] = new Date().toLocaleDateString().split("/");
+    const card = {
+      ...result.data[0],
+      datePicked: date + "-" + month + "-" + year,
+      todayChecked: true
+    };
     firebaseDb.ref("Tarot").push({
-      card: {
-        ...result.data[0],
-        datePicked: new Date().toLocaleDateString(),
-        todayChecked: true
-      }
+      card
     });
+    commit("setCard", card);
   });
 }
 
@@ -26,3 +27,19 @@ export function lastCard({ commit }) {
       commit("setCard", card.val().card);
     });
 }
+
+export function latestReadings({ commit }) {
+  firebaseDb
+    .ref("Tarot")
+    .once("value", card => {
+      let cards = [];
+
+      card.forEach((item) => {
+        var itemVal = item.val();
+        cards.push(itemVal);
+    });
+      
+      commit("setCards", cards);
+    });
+}
+

@@ -4,6 +4,7 @@
 export default {
   words: {
     tarrot_teller: "Tarrot Teller",
-    card_of_day: "Card of the Day"
+    card_of_day: "Card of the Day",
+    latest_reading: "Latest Reading"
   }
 }

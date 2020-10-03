@@ -10,21 +10,21 @@
       {{ $t("words.card_of_day") }}
     </div>
     <div class="row flex flex-center q-mt-sm">
-      <q-btn round @click="seeTodayCard" size="150px" flat v-if="!card || (!card.todayChecked && card.datePicked === today)">
+      <q-btn round @click="seeTodayCard" size="100px" flat v-if="!card || !card.todayChecked || card.datePicked !== today">
         <q-img
-          size="150px"
+          size="100px"
           src="../../public/icons/tarot_back.png"
           spinner-color="white"
         />
       </q-btn>
-      <q-btn  v-else round flat size="150px">
+      <q-btn  v-else round flat size="100px">
         <q-img :src="card.image" spinner-color="white" />
       </q-btn>
     </div>
     <div class="row flex flex-center q-mt-sm">
       {{ card.name }}
     </div>
-    <div class="row flex flex-center q-mt-lg">
+    <div class="col q-mt-lg">
       <card-board-cards />
     </div>
   </q-page>
@@ -44,7 +44,8 @@ export default {
       card: "cards/getCard"
     }),
     today() {
-      return new Date().toLocaleDateString();
+      const [month, date, year] = new Date().toLocaleDateString().split("/");
+      return date + "-" + month + "-" + year;
     }
   },
   methods: {

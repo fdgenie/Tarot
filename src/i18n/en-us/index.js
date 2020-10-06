@@ -3,8 +3,9 @@
 
 export default {
   words: {
-    tarrot_teller: "Tarrot Teller",
+    tarot_teller: "Tarot Teller",
     card_of_day: "Card of the Day",
-    latest_reading: "Latest Reading"
+    latest_reading: "Latest Reading",
+    back: "Back"
   }
 }

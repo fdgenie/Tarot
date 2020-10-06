@@ -6,7 +6,6 @@ export function card({ commit }) {
     url: "/spreads/random_card",
     method: "get"
   }).then(result => {
-    console.log(result.data[0].name);
     const [month, date, year] = new Date().toLocaleDateString().split("/");
     const card = {
       ...result.data[0],

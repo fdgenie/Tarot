@@ -6,9 +6,9 @@
         {{ $t("words.tarot_teller") }}
       </q-toolbar-title>
     </q-toolbar>
-    <div class="row flex flex-center q-mt-lg">
+    <!-- <div class="row flex flex-center q-mt-lg">
       {{ $t("words.card_of_day") }}
-    </div>
+    </div> -->
     <div v-if="isChecked"  class="text-h6 row flex flex-center q-mt-sm">
       {{ card.name }}
     </div>

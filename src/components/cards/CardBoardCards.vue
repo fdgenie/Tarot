@@ -7,7 +7,11 @@
         </strong>
       </div>
     </q-card-section>
-    <q-card-section v-for="card in cards" :key="card.id" class="row justify-center">
+    <q-card-section
+      v-for="card in cards"
+      :key="card.id"
+      class="row justify-center"
+    >
       <div class="col offset-md-2">
         {{ card.card.name }}
       </div>
@@ -23,13 +27,14 @@ import { mapGetters } from "vuex";
 
 export default {
   name: "CardBoardCards",
-   computed: {
+  computed: {
     ...mapGetters({
-      cards: "cards/getCards"
+      cards: "cards/getCards",
+      userId: "user/getUserId"
     })
   },
   mounted() {
-    this.$store.dispatch("cards/latestReadings");
+    this.$store.dispatch("cards/latestReadings", this.userId);
   }
 };
 </script>

@@ -9,16 +9,11 @@
     <div class="row flex flex-center q-mt-lg">
       {{ $t("words.card_of_day") }}
     </div>
-    <div v-if="isChecked"  class="text-h6 row flex flex-center q-mt-sm">
+    <div v-if="isChecked" class="text-h6 row flex flex-center q-mt-sm">
       {{ card.name }}
     </div>
     <div class="row flex flex-center q-mt-sm">
-      <q-btn
-        v-if="isChecked"
-        round
-        flat
-        size="100px"
-      >
+      <q-btn v-if="isChecked" round flat size="100px">
         <q-img
           :src="card.image"
           spinner-color="white"
@@ -60,26 +55,31 @@ export default {
   },
   computed: {
     ...mapGetters({
-      card: "cards/getCard"
+      card: "cards/getCard",
+      userId: "user/getUserId"
     }),
     today() {
       const [month, date, year] = new Date().toLocaleDateString().split("/");
       return date + "-" + month + "-" + year;
     },
     isChecked() {
-      return this.card && this.card.todayChecked && this.card.datePicked === this.today;
+      return (
+        this.card &&
+        this.card.todayChecked &&
+        this.card.datePicked === this.today
+      );
     }
   },
   methods: {
     seeTodayCard() {
-      this.$store.dispatch("cards/card");
+      this.$store.dispatch("cards/card", this.userId);
     },
     seeCardDetails() {
       this.$refs.CardDetails.show(this.card);
     }
   },
   mounted() {
-    this.$store.dispatch("cards/lastCard");
+    this.$store.dispatch("cards/lastCard", this.userId);
   }
 };
 </script>

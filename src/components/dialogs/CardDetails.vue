@@ -8,7 +8,7 @@
       </q-card-section>
 
       <q-card-section class="flex flex-center">
-          <q-img style="width: 300px" :src="card.image" spinner-color="white" />
+          <q-img style="width: 300px" :src="card.image" spinner-color="white" :class="card.isReverse === 0 ? 'rotate-180' : false" />
           <div class="text-subtitle1 q-mt-md">
           {{ card.full_meaning }}
         </div>

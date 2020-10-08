@@ -36,7 +36,7 @@
       </div>
     </div>
     <div class="col q-mt-lg">
-      <card-board-cards :card="card" />
+      <card-board-cards />
     </div>
     <card-details ref="CardDetails" />
   </q-page>

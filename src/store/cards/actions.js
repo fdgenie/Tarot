@@ -1,7 +1,7 @@
 import { axiosInstance } from "boot/axios";
 import { firebaseDb, firebaseAuth } from "boot/firebase";
 
-export function card({ commit }, userId) {
+export function card({ commit, dispatch }, userId) {
   axiosInstance({
     url: "/spreads/random_card",
     method: "get"
@@ -21,6 +21,7 @@ export function card({ commit }, userId) {
       card
     });
     commit("setCard", card);
+    dispatch("latestReadings", userId);
   });
 }
 

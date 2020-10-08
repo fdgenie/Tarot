@@ -7,43 +7,34 @@
         </strong>
       </div>
     </q-card-section>
-    <span v-if="cards.length !== 0">
+    <span>
       <q-card-section
         v-for="card in cards"
         :key="card.id"
         class="row justify-center"
       >
         <div class="col offset-md-2">
-          {{ card.card.name }}
+          <q-btn flat @click="seeCardDetails(card)">
+            {{ card.card.name }}
+          </q-btn>
         </div>
         <div class="col offset-md-3">
           {{ card.card.datePicked }}
         </div>
       </q-card-section>
     </span>
-    <span v-else>
-      <q-card-section class="row justify-center">
-        <div class="col offset-md-2">
-          {{ card.name }}
-        </div>
-        <div class="col offset-md-3">
-          {{ card.datePicked }}
-        </div>
-      </q-card-section>
-    </span>
+    <card-details ref="CardDetails" />
   </q-card>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
+import CardDetails from "components/dialogs/CardDetails";
 
 export default {
   name: "CardBoardCards",
-  props: {
-    card: {
-      type: [Boolean, Object],
-      required: true
-    }
+  components: {
+    CardDetails
   },
   computed: {
     ...mapGetters({
@@ -53,6 +44,11 @@ export default {
   },
   mounted() {
     this.$store.dispatch("cards/latestReadings", this.userId);
+  },
+  methods: {
+    seeCardDetails(card) {
+      this.$refs.CardDetails.show(card.card);
+    }
   }
 };
 </script>
